@@ -1,10 +1,16 @@
-p.redParagraph{
-  color:red;
-  font-size:32px;
-}
-p#first-paragraph{
-  color:blue;
-}
+h1 {
+  font-size: 64px;
+  color: #bb8888;
+  text-decoration: line-through;
+  border: 2px solid blue;
+  color: #bb8888; }
+
+.redParagraph {
+  color: #bb8888;
+  font-size: 64px; }
+
+p#first-paragraph {
+  color: blue; }
+
 p span {
-  font-style: italic;
-}
+  font-style: italic; }

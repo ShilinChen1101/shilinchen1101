@@ -8,7 +8,9 @@
 
     <body>
 
-      <svg width="1000px" height="500px">
+      <h1 id="title"> Don't contact me!!!!</h1>
+
+<svg width="1000px" height="500px">
   <rect x="50px" y="100px" width="50px" height="25px" fill="orange" />
   <circle cx="50px" cy="50px" r="25px" fill="green" />
 </svg>
@@ -18,6 +20,37 @@
 <p id="first-paragraph">
   Here's my 2nd paragraph.
 </p>
+
+<script>
+
+  document.getElementById("title").innerHTML = "Please Contact Me!";
+
+  var myNumber = 4;
+
+  var isBiggerThan20 = myNumber > 20;
+
+  if (isBiggerThan20) {
+    console.log("it's big!");
+  }
+  else {
+    console.log("it's small");
+  }
+
+  var myArray = [10,20,30,40];
+  console.log(myArray[1]);
+
+  var user = {name: "Dave",
+              color: "red",
+              number: 42,
+              };
+  console.log(user.name);
+
+  var sayHello = function(){
+    console.log("Hello");
+  }
+  sayHello();
+
+</script>
 
 
       </body>
