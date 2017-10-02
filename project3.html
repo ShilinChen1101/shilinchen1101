@@ -6,21 +6,20 @@
 </head>
 
 <body>
-	<button onclick="myFunction()">Click Me!</button>
-	<p id="demo"></p>
+
 	<script>
-	function myFunction(){
-		var x="";
-		var time=new Date().getHours();
-		if (time<20){
-		 	x="Good day";
-	     }
-		else{
-	 		x="Good evening";
-	 	}
-		document.getElementById("demo").innerHTML=x;
-	}
-	</script>
+        function EnlargeImage() {
+            var imgmsg = document.getElementById("myimg");
+            imgmsg.width = "800";
+            imgmsg.height = "962";
+        }
+ </script>
+
+    <p>
+        <input type="button" name="btn" value="Click to enlarge this image" onclick="EnlargeImage()" />
+    </p>
+    <img src="robot.jpg" id="myimg" alt="loading" height="240" width="200"/>
 
 </body>
+
 </html>
