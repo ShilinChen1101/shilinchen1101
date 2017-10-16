@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>project 4</title>
+  </head>
+
+  <body>
+      <svg id="mysvg" width="400" height="500">
+        <circle r="2" cy="50" cx="50" class="dot" fill="green"></circle>
+        <circle r="4" cy="50" cx="100" class="dot" fill="green"></circle>
+        <circle r="6" cy="50" cx="150" class="dot" fill="green"></circle>
+        <circle r="8" cy="50" cx="200" class="dot" fill="green"></circle>
+     </svg>
+
+
+     <script src="https://d3js.org/d3.v4.min.js"></script>
+     <script>
+      var svg = d3.select("#mysvg")
+                  .attr("width", window.innerWidth)
+                  .attr("height", window.innerHeight);
+      function draw(dataArray){
+        var circles = svg.selectAll(".dot")
+                         .data(dataArray);
+            circles.exit()
+                  .transition().duration(1500)
+                  .attr("r",0)
+                  .attr("fill","red")
+                  .remove();
+        var enterCircles = circles.enter().append("circle")
+            .attr("r",0)
+            .attr("cy","50")
+            .attr("cx", function(d, index){
+              return 30 * (index + 2);
+            })
+            .attr("class","dot");
+
+          circles.merge(enterCircles)
+                .transition().duration(1500)
+                .attr("r", function(d){
+                  return d;
+                })
+                .attr("fill","blue");
+      }
+
+
+       </script>
+
+      <button onclick="draw([10,12,31,24])" style="position:absolute;left:20px; top: 200px;">Click me</button>
+
+
+  </body>
+</html>
