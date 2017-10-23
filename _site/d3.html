@@ -8,30 +8,51 @@
 
     <body>
 
-      <svg id="mysvg"></svg>
+      <svg id="mysvg" width="456" height="647">
+<circle r="2" cy="50" cx="50" class="dot" fill="blue"></circle>
+<circle r="2" cy="50" cx="100" class="dot" fill="blue"></circle>
+<circle r="2" cy="50" cx="150" class="dot" fill="blue"></circle>
+</svg>
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script>
 
-
-
   function draw(dataArray) {
 
-    var svg = d3.select("#mysvg")
+      var svg = d3.select("#mysvg")
 
-    var circles = svg.selectAll(".dot")
-      .data(dataArray);
+      var labels = svg.selectAll(".label")
+          .data(dataArray);
 
-    circles.exit()
+      labels.exit().remove();
+
+      var enterLabels = labels.enter().append("text")
+            .attr("class", "label")
+            .attr("y","20")
+            .attr("font-size", "8px")
+            .attr("text-anchor", "middle")
+            .attr("x",function(d, index){
+              return 50 * (index + 1);
+            });
+
+      labels.merge(enterLabels)
+              .text(function(d){
+                return d.country;
+              });
+
+      var circles = d3.selectAll(".dot")
+                .data(dataArray);
+
+      circles.exit()
       .transition().duration(1000)
       .attr("r", 0)
+      .attr("fill","red")
       .remove();
 
     var enterCircles = circles.enter().append("circle")
         .attr("r", 0)
         .attr("cy","50")
-        .attr("cx", function(hello,index3232
-        ){
+        .attr("cx", function(d,index){
           return 50 * (index + 1);
         })
         .attr("class","dot");
@@ -39,9 +60,21 @@
         circles.merge(enterCircles)
           .transition().duration(1000)
           .attr("r",function(d) {
-            return d;
+            return d.value;
           })
-    }
+          .attr("fill",function(d){
+            return d.color;
+          });
+        }
+
+          d3.json("data.json", function(error,data){
+              console.log(data);
+              draw(data);
+
+
+
+    });
+
 
 </script>
 
