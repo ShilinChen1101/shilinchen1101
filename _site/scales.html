@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="utf-8" />
+      <title>My Homepage</title>
+      <link rel="stylesheet" href="style.css" />
+    </head>
+
+    <body>
+
+      <svg id="mysvg"></svg>
+<div id="popup" style="border:1px solid black;background-color:white;display:none;"></div>
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+
+  d3.select("body").style("margin","0px");
+
+  var margin = 50;
+
+  var svg = d3.select("#mysvg")
+    .style("background-color","lightgray")
+    .attr("width",window.innerWidth - margin * 2)
+    .attr("height",window.innerHeight - margin * 2)
+    .attr("transform","translate(" + margin + ", " + margin +")");
+
+    var data = [0.2, 3.2, 2.7, 4.7];
+
+    var xScale = d3.scaleLinear()
+      .domain([d3.extent(data)])
+      .range([0, window.innerWidth - margin]);
+
+    var yScale = d3.scaleLinear()
+      .domain([0, data.length - 1])
+      .range([0, window.innerHeight - margin]);
+
+    var circles = svg.selectAll("circle")
+      .data(data);
+
+    circles.enter().append("circle")
+        .attr("r",25)
+        .attr("cy", function(d, i){
+          return yScale(i);
+        })
+        .attr("cx", function(d){
+          return xScale(d);
+        })
+        .on("click", function(d){
+          d3.selcet("#popup")
+          .style("display","block")
+          .style("position", "absolute")
+          .style("left", xScale(d) + "px")
+          .style("top", yScale(i))
+          .text(d);
+        })
+
+</script>
+
+
+      </body>
+</html>
