@@ -1,4 +1,4 @@
-country,value
-usa,10
-mexico,20
-canada,12
+country,value,color
+usa,10,red
+mexico,20,green
+canada,12,blue

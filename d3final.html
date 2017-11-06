@@ -3,15 +3,65 @@
 	<head>
 		<meta charset="utf-8">
 		<title>final project</title>
+		<link rel="stylesheet" href="main.css">
   </head>
 
   <body>
+		<div class="MainWrapper">
+		<header>
+			<nav>
+				<ul>
+					<li class="logo"><a href="index.html">Home</a></li>
+					<li><a href="p4.html">Project4</a></li>
+					<li><a href="project3.html">Project3</a></li>
+					<li><a href="assignment2.html">Project2</a></li>
+				</ul>
+			</nav>
+			<div id="banner">
+				<div class="inner">
+					<h1>UFO SIGHTINGS</h1>
+				</div>
+			</div>
+		</header>
+		<div class="content">
+			<section class="MapSection">
+				<div class="wrapper">
+					<h2>data</h2>
+				</div>
+			</section>
+		</div>
      <script src="https://d3js.org/d3.v4.min.js"></script>
-     <h1>UFO Sightings</h1>
-     <script>
-      d3.csv("scrubbed.csv",function(error,data){
-        console.log(data);
-      });
-    </script>
 
+		 <script>
+			  d3.queue()
+			    .defer(d3.csv, "ufodata.csv")
+			    .defer(d3.csv, "usa.json")
+			    .awaitAll(function(error, data) {
+
+			      var ufoData = data[0];
+
+			      for (var i = 0; i < ufoData.length; i++) {
+			        console.log(ufoData[i]);
+			      }
+
+			      ufoData.forEach(function(d, i) {
+
+			        for (var poop in d) {
+			          var num = +d[poop];
+			          if (isNaN(num) == false) {
+			            d[poop] = num;
+			          }
+
+			        }
+
+			      });
+
+			      console.log(ufoData);
+
+			    });
+
+
+
+    </script>
+	</div>
   </body>

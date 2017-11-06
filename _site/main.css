@@ -1,0 +1,90 @@
+body {
+	margin: 0;
+	padding: 0;
+	position: relative;
+	width: auto;
+}
+nav
+{
+  background: transparent;
+  height: 50px;
+}
+#banner
+{
+  background: transparent;
+  height: 800px;
+}
+nav ul
+{
+  list-style: none;
+  margin: 0;
+}
+nav ul li
+{
+  display: inline-block;
+  line-height: 50px;
+  float: right;
+  margin-right: 20px;
+}
+nav ul li a
+{
+  line-height: 50px;
+  text-decoration: none;
+  display: inline-block;
+  height: inherit;
+  background: none;
+  color: #fff;
+  font-size: 15px;
+  padding: 0;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: "futura",sans-serif;
+}
+
+nav ul li.logo
+{
+  float: left;
+}
+
+#banner .inner
+{
+  max-width: -webkit-fill-available;
+  text-align: center;
+  margin: 0 auto;
+  position: relative;
+  top: 550px;
+}
+#banner .inner h1
+{
+  margin: 0;
+  font-family: "futura",sans-serif;
+  color: #fff;
+  font-weight: 600;
+  font-size: 48px;
+  letter-spacing: 8px;
+}
+
+.MapSection
+{
+  background: #342e52;
+  color: #fff;
+  text-align: center;
+  padding: 80px 0;
+  height:800px;
+}
+
+.wrapper
+{
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.MainWrapper
+{
+  background: #444 url(ufo.jpg);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+
+}
