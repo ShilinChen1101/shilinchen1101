@@ -88,3 +88,37 @@ nav ul li.logo
   background-position: center center;
 
 }
+
+/*svg {
+   stroke-width: 1.8px;
+   stroke: #CFCFCF;
+   fill: #F0F0F0;
+}*/
+
+.axis path,
+        .axis line {
+            fill: none;
+            stroke: #F2E8DE;
+            shape-rendering: crispEdges;
+        }
+        .line {
+            fill: none;
+            stroke: #FCAD62;
+            stroke-width: 1.5px;
+        }
+        text{
+            fill:#999;
+        }
+        .inner_line line {
+            fill: none;
+            stroke:#E7E7E7;
+            shape-rendering: crispEdges;
+        }
+        .MyCircle {
+            fill: #FCAD62;
+        }
+
+/*circle {
+   fill: #FF8533;
+   stroke-width: 0px;
+}*/

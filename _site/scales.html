@@ -45,7 +45,7 @@
         .attr("cx", function(d){
           return xScale(d);
         })
-        .on("click", function(d){
+        .on("mouseover", function(d, i){
           d3.selcet("#popup")
           .style("display","block")
           .style("position", "absolute")
@@ -53,6 +53,10 @@
           .style("top", yScale(i))
           .text(d);
         })
+        .on("mouseout"), function(){
+          d3.select("#popup")
+            .style("display","none");
+        }
 
 </script>
 
