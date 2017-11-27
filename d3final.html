@@ -28,7 +28,10 @@
 				<div class="wrapper">
 					<h2>UFO SIGHTINGS: YEAR</h2>
 					<svg id="mysvg" width = "960" height = "500"></<svg>
-					<svg id="chart" width = "800" heigh = "600"></svg>
+				</div>
+				<div>
+					<h2>UFO SIGHTINGS: MAP</h2>
+					<svg id="map" width = "960" heigh = "600"></svg>
 				</div>
 			</section>
 
@@ -55,18 +58,45 @@
 		 var x = d3.scaleTime().range([0, width]);
 		 var y = d3.scaleLinear().range([height, 0]);
 
-		 var xAxis = d3.axisBottom(x);
+		 var xAxis = d3.axisBottom(x)
 		 var yAxis = d3.axisLeft(y);
 
 
 		 // Get the data
-		 d3.csv("year.csv", function(error, data) {
+		 d3.csv("ufodata.csv", function(error, rawData) {
 		   if (error) throw error;
+
+			 rawData = rawData.filter(function(d) {
+				 return d.datetime;
+			 });
+
+			 var data = d3.nest()
+				 .key(function(d) {
+					 return new Date(d.datetime).getFullYear();
+				 })
+				 .entries(rawData)
+				 .sort(function(a, b) {
+					 return parseInt(a.key) - parseInt(b.key);
+				 });
+
+
+
+			 var pointData = d3.nest()
+	 				.key(function(d) {
+	 					return d.longitude + "," + d.latitude;
+	 				})
+	 				.entries(rawData);
+
+			var shapedata = d3.nest()
+				.key(function(d){
+					return d.shape
+				})
+
 
 		   // format the data
 		   data.forEach(function(d) {
-		       d.year = parseTime(d.year);
-		       d.sightings = +d.sightings;
+		       d.year = parseTime(d.key);
+		       d.sightings = d.values.length;
 		   });
 
 		   // Scale the range of the data
@@ -84,17 +114,14 @@
 		   svg.append("path")
 		       .datum(data)
 		       .attr("class", "line")
-		       .attr("d", valueline)
-					 .attr("opacity", 0)
-					 .transition()
-                .duration(2000)
-                .attr("opacity", 1);
+		       .attr("d", valueline);
+
 
 
 
 					 var points = svg.selectAll(".MyCircle")
 	                .data(data)
-	                .enter()
+                  .enter()
 	                .append("circle")
 	                .attr("class","MyCircle")
 	                .attr("transform","translate(0,0)")
@@ -105,10 +132,73 @@
 										d3.select(this)
 											.transition()
 											.duration(500)
+
 											.attr("r", 20);})
 									.on("mouseout", function(){
 										d3.select(this).transition().duration(500).attr("r", 5);
 									});
+
+						var tips = svg.append("g").attr("class","tips");
+
+						tips.append("rect")
+							.attr("class", "tip-border")
+							.attr("width", 200)
+							.attr("height", 50)
+							.attr('rx', 10)
+  						.attr('ry', 10);
+
+						var wording1 = tips.append("text")
+							.attr("class", "tips-text")
+							.attr("x", 10)
+							.attr("y", 20)
+							.text("");
+
+							var wording2 = tips.append("text")
+								.attr("class", "tips-text")
+								.attr("x", 10)
+								.attr("y", 40)
+								.text("");
+
+								svg.on('mousemove', function() {
+								    var m = d3.mouse(this),
+								      cx = m[0] - margin.left;
+
+								    var x0 = x.invert(cx);
+								    var i = (d3.bisector(function(d) {
+								      return d.year;
+								    }).left)(data, x0, 1);
+
+								    var d0 = data[i - 1],
+								      d1 = data[i] || {},
+								      d = x0 - d0.year > d1.year - x0 ? d1 : d0;
+
+								    function formatWording(d) {
+								      return 'Year：' + (d.year.getFullYear());
+								    }
+								    wording1.text(formatWording(d));
+								    wording2.text('Sightings：' + d.sightings);
+
+								    var x1 = x(d.year),
+								      y1 = y(d.sightings);
+
+								    // 处理超出边界的情况
+								    var dx = x1 > width ? x1 - width + 200 : x1 + 200 > width ? 200 : 0;
+
+								    var dy = y1 > height ? y1 - height + 50 : y1 + 50 > height ? 50 : 0;
+
+								    x1 -= dx;
+								    y1 -= dy;
+
+								    d3.select('.tips')
+								      .attr('transform', 'translate(' + x1 + ',' + y1 + ')');
+
+								    d3.select('.tips').style('display', 'block');
+								  })
+								  .on('mouseout', function() {
+								    d3.select('.tips').style('display', 'none');
+								  });
+
+
 
 
 			 // Add the X Axis
@@ -131,70 +221,50 @@
 
 
 
+
+					 				d3.json("usa.json", function(error, data) {
+					 				var geoJSON = topojson.feature(data, data.objects.states);
+					 				console.log(geoJSON);
+					 				console.log(data);
+					 				var proj = d3.geoAlbersUsa()
+					 	  			.fitSize([window.innerWidth, window.innerHeight], geoJSON);
+					 				var path = d3.geoPath()
+					 	  			.projection(proj);
+					 				var svg = d3.select("#map")
+					 					.attr("width", window.innerWidth)
+					 					.attr("height", window.innerHeight);
+					 				var states = svg.selectAll("path")
+					 	  			.data(geoJSON.features);
+
+					 					states.enter().append("path")
+					 	  			.attr("d", function(d) {
+					 	    					return path(d);
+					 	  				})
+
+					 					var svg = d3.select("#map")
+					 					.attr("width", window.innerWidth)
+					 					.attr("height", window.innerHeight);
+					 					var groups = svg.append("g");
+					 					var proj = d3.geoAlbersUsa()
+					 						.fitSize([window.innerWidth, window.innerHeight], geoJSON);
+					 					var path = d3.geoPath()
+					 			  		.projection(proj);
+
+
+
+
+					 					var points = svg.selectAll("circle")
+					 	  				.data(pointData);
+
+					 					points.enter().append("circle")
+					 							.attr("r", 2)
+												.attr("opacity", 0.5)
+					 					  	.attr("transform", function(d){
+					 					    return "translate(" + proj(d.key.split(",")) + ")";
+					 					  })
+						});
+
 		 });
-
-				// d3.json("usa.json", function(error, data) {
-				// var geoJSON = topojson.feature(data, data.objects.states);
-				// console.log(geoJSON);
-				// console.log(data);
-				// var proj = d3.geoAlbersUsa()
-	  		// 	.fitSize([window.innerWidth, window.innerHeight], geoJSON);
-				// var path = d3.geoPath()
-	  		// 	.projection(proj);
-				// var svg = d3.select("#mysvg")
-				// 	.attr("width", window.innerWidth)
-				// 	.attr("height", window.innerHeight);
-				// var states = svg.selectAll("path")
-	  		// 	.data(geoJSON.features);
-				//
-				// 	states.enter().append("path")
-	  		// 	.attr("d", function(d) {
-	    	// 				return path(d);
-	  		// 		})
-
-					// var svg = d3.select("#mysvg")
-					// .attr("width", window.innerWidth)
-					// .attr("height", window.innerHeight);
-					// var groups = svg.append("g");
-					// var proj = d3.geoAlbersUsa()
-					// 	.fitSize([window.innerWidth, window.innerHeight], geoJSON);
-					// var path = d3.geoPath()
-			  	// 	.projection(proj);
-					// var colorA = d3.hsl(60,1.0,0.5);        // 红色
-	        // var colorB = d3.hsl(60,0.1,0.5);
-					// var computerColor = d3.interpolate(colorB,colorA);
-					// var compute = d3.scaleLinear()
-					// 	.domain([0,1.8])
-					// 	queue()
-					// 		.defer(d3.csv, "test.csv")
-					// 		.defer(d3.csv, "states.csv")
-					// 		.await(ready);
-					//
-					// 	function ready (error, test, states){
-          //   var test = svg.selectAll("circle")
-          //   .data(test)
-					//
-					// 	ufodata.enter().append("circle")
-          //   .attr("r", 1)
-					// 	.attr("transform", function(d){
-					// 		return "translate(" + proj(d.longitude, d.latitude) + ")";
-					//      })
-          //   }
-
-
-					// var points = [
-	  			// 	{"name": "Boston", "coords": [-71.0589, 42.3601]}
-					// 		];
-					//
-					// var points = svg.selectAll("circle")
-	  			// 	.data(points);
-					//
-					// points.enter().append("circle")
-					// 		.attr("r", 10)
-					//   	.attr("transform", function(d){
-					//     return "translate(" + proj(d.coords) + ")";
-					//   })
-							// });
 
        </script>
 	</div>
