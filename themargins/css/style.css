@@ -16,7 +16,6 @@ body, html{
   background-image:url('../images/image1.jpg');
   min-height:100%;
   position:relative;
-  /*opacity:0.70;*/
   background-position:center;
   background-size:cover;
   background-repeat:no-repeat;
@@ -26,20 +25,25 @@ body, html{
     scroll = normal
   */
   background-attachment:fixed;
+  overflow: hidden;
 }
 
 .ptext{
   position:absolute;
-  top:50%;
+  top:40%;
   width:100%;
   text-align:center;
-  color:#000;
-  font-size:27px;
-  letter-spacing:8px;
+  color:#fff;
+  font-family: "PostoniStandardBold",Georgia,serif;
+  font-size:4rem;
+  letter-spacing:1px;
+  font-weight:bold;
   text-transform:uppercase;
+  text-shadow: 1px 1px #2a2a2a;
 }
 
 .ptext .border{
+
   background-color:#111;
   color:#fff;
   padding:20px;
@@ -53,4 +57,25 @@ body, html{
   .pimg1, .pimg2, .pimg3{
     background-attachment:scroll;
   }
+}
+
+.byline{
+  font-family: "FranklinITCProBold",Helvetica,Arial,sans-serif;
+  /*font-family: "BentonSansComp-Bold","Helvetica",sans-serif;*/
+  font-size:  1.2rem;
+  line-height: 1.2rem;
+  font-weight:bold;
+  color:black;
+  margin-top: 3rem;
+  text-align:left;
+  margin-right: 3rem;
+  /*letter-spacing: 0.1rem;*/
+}
+
+.subhead{
+  font-size:  2rem;
+  letter-spacing:1px;
+  text-transform:none;
+  font-family: "nyt-franklin", arial, helvetica, sans-serif;
+  font-weight:normal;
 }

@@ -31,6 +31,9 @@
 
   <!-- jQuery -->
   <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.min.js"></script>
 
   <!-- Fotorama -->
   <link href="css/fotorama.css" rel="stylesheet">
@@ -74,21 +77,28 @@
 
 <div class="pimg1">
   <div class="ptext">
-    <span class="border">
+    <!-- <span class="border"> -->
       Immigration Status: Proud
-    </span>
+    </br>
+
+    <p class="subhead">Thousands of dreamers could lose protection as DACA deadline arrives.</p>
+    <!-- </span> -->
+    </div>
   </div>
 </div>
 
 <div class="container">
   <div class="row">
     <div class="column TheMargins">
-
-
     <div class="eight columns offset-by-two" style="margin-top:5%">
-      <p>
-      Why did they risk their lives and peace of mind, to call a different country their home? And why do “Americans” fight for undocumented immigrants’ right to call USA their home? Margins spoke with some of these undocumented to understand how life has been and how it has changed since the Trump administration.
-      </p>
+    <p class="byline">
+              By Priyanka Ketkar, Felippe Rodrigues, George Redak, and Shilin Chen
+              <hr style="border-bottom:0.1rem black solid; margin-top:-1.0rem;"/>
+            </p>
+
+    </div>
+
+    <div class="eight columns offset-by-two" >
       <p>
       It was a rough ride sitting cramped in the back of a truck and she was just five years old. She was supposed to say she was a cousin when the border immigration officer asked her. The officers, looking enormous to the small girl, read out names of all her cousins and she raised her hand every time.
       </p>
@@ -109,13 +119,16 @@
       </p>
       <p>
       And it looked like his life was getting better with DACA. Apart from shielding the immigrant children, DACA also allowed them to get work permits, social security numbers, and travel.
-      </p>
+    </p></br>
     </div>
 
     <div class="twelve columns">
       <img src="images/image2.jpg" width="100%" height="100%"/>
     </div>
-    <div></div>
+    <div class="eight columns offset-by-two"><p><span style="font-size: 0.875rem;
+    line-height: 1.266666666666667;
+    color: #666666;
+    ffont-family: "Georgia",serif;">Bruno Villegas says the elimination of DACA would put his life in America in jeopardy. (Felippe Rodrigues)</span></p></div>
 
     <div class="eight columns offset-by-two">
       <p>Jessica Vega, a 20-year-old special needs girl, studying in high school now, was five, when her parents brought her to United States from El Salvador, to escape “bad people”. Located in the heart of Central America, El Salvador is plagued by gang violence and drug trafficking. The murder rate is high. Not even children are safe. At least one child a day – on average – is found murdered in El Salvador.
@@ -124,9 +137,6 @@
       “Some people come here because they have special needs kids. Like in my country, just because you have something [some disability] they treat you bad. They treat you like dogs. And that’s why people come here -- to get a better life,” she explains.
       </p>
     </div>
-
-
-    <div class="twelve columns offset-by-two"><svg id="barChart" width="100%" height="100%"></svg></div>
 
     <div class="eight columns offset-by-two">
       <p>
@@ -143,7 +153,7 @@
       </p>
     </div>
 
-    <div class="eight columns offset-by-two"><h2 class="TheMargins_head">When did immigration become illegal in USA?</h2></div>
+    <div class="eight columns offset-by-two"><h2 class="TheMargins_head" style="margin-top:5%">When did immigration become illegal in USA?</h2></div>
 
     <div class="eight columns offset-by-two">
       <p>
@@ -154,7 +164,7 @@
     <div class="twelve columns"><iframe src='https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=145FsySfVQsIr3pagElKRDsJZ4n1M9ij02WZ9Ypgvexk&font=Default&lang=en&initial_zoom=2&height=650' width="100%" height="700" frameborder='0'></iframe>
                                 </div>
 
-    <div class="eight columns offset-by-two"><h2 class="TheMargins_head">Why does America support undocumented immigrants and dreamers?
+    <div class="eight columns offset-by-two" style="margin-top:5%"><h2 class="TheMargins_head">Why does America support undocumented immigrants and dreamers?
     </h2></div>
 
     <div class="eight columns offset-by-two">
@@ -177,13 +187,10 @@
 
     <div class="twelve columns">
     <div class="fotorama" data-width="100%"  data-ratio="800/600" data-max-width="100%" data-nav="thumbs" data-fit="cover" data-loop="true">
-    <img data-caption="Protesters marched down the street after the announcement that the Deferred Action for Childhood Arrivals program was ending.(Priyanka Ketkar)" src="images/image3.jpg">
-    <img data-caption="這是圖說" src="images/image4.jpg">
-    <img src="images/image5.jpg">
-    <img src="images/image6.jpg">
-    <img src="images/image7.jpg">
-    <img src="images/image8.jpg">
-    <img src="images/image9.jpg">
+    <img data-caption="In September, people protesting President Trump’s plan to cancel the DACA program headed for Boston Common.(Priyanka Ketkar)" src="images/image3.jpg">
+    <img data-caption="Protesters sit in the Boston Common. (Priyanka Ketkar)"src="images/image5.jpg">
+    <img data-caption="A protester hold a sign to support DACA. (Priyanka Ketkar)"src="images/image7.jpg">
+    <img data-caption="Immigrants and supporters demonstrate holding signs during a rally. (Priyanka Ketkar)" src="images/image9.jpg">
     </div>
     </div>
 
@@ -193,7 +200,7 @@
       </p>
     </div>
 
-    <div class="eight columns offset-by-two"><h2 class="TheMargins_head">How do the undocumented and the Dreamers contribute to USA?
+    <div class="eight columns offset-by-two" style="margin-top:5%"><h2 class="TheMargins_head">How do the undocumented and the Dreamers contribute to USA?
     </h2></div>
 
     <div class="eight columns offset-by-two">
@@ -207,13 +214,14 @@
       </p>
     </div>
 
-    <div class="eight columns offset-by-two"><h2 class="TheMargins_head">Life...if sent back (“Home” again)
+    <div class="eight columns offset-by-two" style="margin-top:5%"><h2 class="TheMargins_head">Life...if sent back (“Home” again)
     </h2></div>
 
     <div class="eight columns offset-by-two">
       <p>
         Just as not all legal citizens of America are criminals and pay taxes, so do the undocumented and those on DACA. And USA stands to lose those contributions if they are deported. And what about the Dreamers? What do they stand to lose?
       </p>
+
       <p>
         Romina, originally from Argentina, cannot imagine a life away from here. “I am a Dreamer. We were kids who came here when we were really young; so this is all we know. If I were to go back, I wouldn’t even know where I would start. I love this country. It is what I call home.”
       </p>
@@ -226,8 +234,43 @@
       <p>
         “We are hard workers and we will adapt. But just to think that we have to uproot our lives… and start from zero. It’s sad. It’s not fair.”
       </p>
-    </div>
+</div>
 
+      <div class="eight columns offset-by-two"><h2 class="TheMargins_head">A Typical ‘Dreamer’ Lives in Los
+Angeles, Is From Mexico and
+Came to the U.S. at 6 Years Old</h2><button type="button">show data</button>
+
+<!-- </br><button id="hide" type="button">Hide</button>
+<div id="barchart" style="display:none"></div>
+<div id="barchart2" style="display:none"></div>
+<div id="bar" style="display:none"></div>
+<button id="show" type="button">Show</button> -->
+
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $("button").click(function(){
+  $("#barchart,#barchart2,#bar").toggle();
+  });
+});
+</script>
+
+<div class="eight columns offset-by-two">
+
+
+     <svg id="barchart" width="600" height="300" style="display:none"></svg>
+      <svg id="barchart2" width="600" height="300" style="display:none"></svg>
+      <svg id="bar" width="600" height="300" style="display:none"></svg>
+
+
+</div>
+
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="js/barchart.js"></script>
+    <script src="js/bar.js"></script>
+    <script src="js/agetousa.js"></script>
     </div>
   </div>
 </div>
@@ -240,37 +283,32 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
   <style>
-#barChart {
-  margin: 15px;
-  background-color: #F1F3F3
-}
-.bar {
-	fill: #6F257F;
-}
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #D4D8DA;
-  stroke-width: 1px;
-  shape-rendering: crispEdges;
-}
-.x path {
-	display: none;
-}
-.toolTip {
-	position: absolute;
-  display: none;
-  min-width: 80px;
-  height: auto;
-  background: none repeat scroll 0 0 #ffffff;
-  border: 1px solid #6F257F;
-  padding: 14px;
-  text-align: center;
-}
-</style>
+  .bar {
+  	fill: #2177BB;
+  }
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #D4D8DA;
+    stroke-width: 1px;
+    shape-rendering: crispEdges;
+  }
+  .x path {
+  	display: none;
+  }
+  .toolTip {
+  	position: absolute;
+    display: none;
+    min-width: 80px;
+    height: auto;
+    background: none repeat scroll 0 0 #ffffff;
+    border: 1px solid #2177BB;
+    padding: 14px;
+    text-align: center;
+  }
+  </style>
 
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="js/barchart.js"></script>
+
 
 </body>
 </html>

@@ -1,17 +1,17 @@
-var data = [{"country":"Mexico","value":622743},
-{"country":"El Salvador","value":28571},
-{"country":"Guatemala","value":20000},
-{"country":"Honduras","value":18385},
-{"country":"Peru","value":9102},
-{"country":"South Korea","value":7282},
-{"country":"Brazil","value":7400},
-{"country":"Ecuador","value":6725},
-{"country":"Colombia","value":6608},
-{"country":"Philippines","value":4674}
+var data = [{"state":"Califonia","value":223749},
+{"state":"Texas","value":124774},
+{"state":"New York","value":42503},
+{"state":"Florida","value":33207},
+{"state":"Washington","value":17937},
+{"state":"Illionis","value":42537},
+{"state":"Arizona","value":27932},
+{"state":"New Jersey","value":22227},
+{"state":"North Carolina","value":27455},
+{"state":"Georgia","value":24234}
 ];
 
 
-var svg = d3.select("#barchart"),
+var svg = d3.select("#barchart2"),
     margin = {top: 20, right: 20, bottom: 30, left: 80},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom;
@@ -32,7 +32,7 @@ var g = svg.append("g")
       d.value = +d.value;
     })
   	x.domain([0, d3.max(data, function(d) { return d.value; })]);
-    y.domain(data.map(function(d) { return d.country; }));
+    y.domain(data.map(function(d) { return d.state; }));
 
     g.append("g")
         .attr("class", "x axis")
@@ -50,13 +50,13 @@ var g = svg.append("g")
         .attr("class", "bar")
         // .attr("x", 0)
         .attr("height", y.bandwidth())
-        .attr("y", function(d) { return y(d.country); })
+        .attr("y", function(d) { return y(d.state); })
         .attr("width", function(d) { return x(d.value); })
         .on("mousemove", function(d){
             tooltip
               .style("left", d3.event.pageX - 50 + "px")
               .style("top", d3.event.pageY - 70 + "px")
               .style("display", "inline-block")
-              .html("Country:"+ (d.country) + "<br>" + "DACA beneficiaries:" + (d.value));
+              .html("state:"+ (d.state) + "<br>" + "DACA beneficiaries:" + (d.value));
         })
     		.on("mouseout", function(d){ tooltip.style("display", "none");});
