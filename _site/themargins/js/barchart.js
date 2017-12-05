@@ -1,38 +1,4 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<style>
-body {
-  margin: 15px;
-  background-color: #F1F3F3
-}
-.bar {
-	fill: #2177BB;
-}
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #D4D8DA;
-  stroke-width: 1px;
-  shape-rendering: crispEdges;
-}
-.x path {
-	display: none;
-}
-.toolTip {
-	position: absolute;
-  display: none;
-  min-width: 80px;
-  height: auto;
-  background: none repeat scroll 0 0 #ffffff;
-  border: 1px solid #2177BB;
-  padding: 14px;
-  text-align: center;
-}
-</style>
-<svg width="960" height="500"></svg>
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script>
-var svg = d3.select("svg"),
+var svg = d3.select("#barChart"),
     margin = {top: 20, right: 20, bottom: 30, left: 80},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom;
@@ -40,23 +6,22 @@ var svg = d3.select("svg"),
 var tooltip = d3.select("body").append("div").attr("class", "toolTip");
 
 var x = d3.scaleLinear().range([0, width]);
-var y = d3.scaleBand().range([height, 0]).padding(0.1);
+var y = d3.scaleBand().range([height, 0]);
 
 var g = svg.append("g")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("conutrydata.csv", function(error, data) {
+d3.csv("dacastate.csv", function(error, data) {
   	if (error) throw error;
 
-  	data.sort(function(a, b) { return a.value - b.value; });
+  	data.sort(function(a, b) { return a.acceptedNumbe - b.acceptedNumbe; });
 
-  	x.domain([0, d3.max(data, function(d) { return d.value; })]);
-    y.domain(data.map(function(d) { return d.country; }));
+  	x.domain([0, d3.max(data, function(d) { return d.acceptedNumbe; })]);
+    y.domain(data.map(function(d) { return d.state; })).padding(0.1);
 
     g.append("g")
         .attr("class", "x axis")
        	.attr("transform", "translate(0," + height + ")")
-        // .call(d3.axisBottom(x)).
       	.call(d3.axisBottom(x).ticks(5).tickFormat(function(d) { return parseInt(d / 1000); }).tickSizeInner([-height]));
 
     g.append("g")
@@ -69,15 +34,14 @@ d3.csv("conutrydata.csv", function(error, data) {
         .attr("class", "bar")
         .attr("x", 0)
         .attr("height", y.bandwidth())
-        .attr("y", function(d) { return y(d.country); })
-        .attr("width", function(d) { return x(d.value); })
+        .attr("y", function(d) { return y(d.state); })
+        .attr("width", function(d) { return x(d.acceptedNumbe); })
         .on("mousemove", function(d){
             tooltip
               .style("left", d3.event.pageX - 50 + "px")
               .style("top", d3.event.pageY - 70 + "px")
               .style("display", "inline-block")
-              .html((d.country) + "<br>" + (d.value));
+              .html((d.state) + "<br>" + "£" + (d.acceptedNumbe));
         })
     		.on("mouseout", function(d){ tooltip.style("display", "none");});
 });
-</script>

@@ -176,6 +176,7 @@ div.TheMargins p {
     font-family: "Georgia",serif;
     font-size: 1.6rem;
     line-height: 3rem;
+    
 }
 
 a   {
@@ -199,6 +200,19 @@ a:active {
     }
 
 
+  /* Parallax and the others
+  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+
+
+
+
+  /* Turn off parallax scrolling for tablets and phones. Increase the pixels if needed */
+  /*@media only screen and (max-device-width: 1024px) {
+    .pimg1 {
+      background-attachment: scroll;
+    }
+  }*/
 
 
 /* Footer
