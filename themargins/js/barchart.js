@@ -1,4 +1,4 @@
-var data = [{"country":"Mexico","value":622743},
+var data2 = [{"country":"Mexico","value":622743},
 {"country":"El Salvador","value":28571},
 {"country":"Guatemala","value":20000},
 {"country":"Honduras","value":18385},
@@ -27,12 +27,12 @@ var g = svg.append("g")
 // d3.csv("conutrydata.csv", function(error, data) {
 //   	if (error) throw error;
 
-  	data.sort(function(a, b) { return a.value - b.value; });
-    data.forEach(function(d){
+  	data2.sort(function(a, b) { return a.value - b.value; });
+    data2.forEach(function(d){
       d.value = +d.value;
     })
-  	x.domain([0, d3.max(data, function(d) { return d.value; })]);
-    y.domain(data.map(function(d) { return d.country; }));
+  	x.domain([0, d3.max(data2, function(d) { return d.value; })]);
+    y.domain(data2.map(function(d) { return d.country; }));
 
     g.append("g")
         .attr("class", "x axis")
@@ -45,22 +45,47 @@ var g = svg.append("g")
         .call(d3.axisLeft(y));
 
     g.selectAll(".bar")
-        .data(data)
+        .data(data2)
       .enter().append("rect")
         .attr("class", "bar")
         // .attr("x", 0)
         .attr("height", y.bandwidth())
         .attr("y", function(d) { return y(d.country); })
-        .attr("width", function(d) { return x(d.value); })
-        .on("mousemove", function(d){
-            tooltip
-              .style("left", d3.event.pageX - 50 + "px")
-              .style("top", d3.event.pageY - 70 + "px")
-              .style("display", "inline-block")
-              .html("Country:"+ (d.country) + "<br>" + "DACA beneficiaries:" + (d.value));
-        })
-    		.on("mouseout", function(d){ tooltip.style("display", "none");});
+        .attr("width", function(d) { return x(d.value); });
+        // .on("mousemove", function(d){
+        //     tooltip
+        //       .style("left", d3.event.pageX - 50 + "px")
+        //       .style("top", d3.event.pageY - 70 + "px")
+        //       .style("display", "inline-block")
+        //       .html("Country:"+ (d.country) + "<br>" + "DACA beneficiaries:" + (d.value));
+        // })
+    		// .on("mouseout", function(d){ tooltip.style("display", "none");});
 
+        g.selectAll(".text")
+          .data(data2)
+          .enter()
+          .append("text")
+          .attr("class","label")
+          .attr("y", (function(d) { return y(d.country) + y.bandwidth() / 1.5 ; }  ))
+          // .attr("x", function(d) { return x(d.value) / 2; })
+          // .attr("text-anchor", "middle")
+          .attr("x", + 5)
+          .attr("fill", "balck")
+          .style("font-size", "12px")
+          .text(function(d) { return d.value; });
 
+        d3.selectAll('.svglevelup').style('opacity', 0);
+        d3.select('#svgDiv1').style('opacity', 1);
+d3.select('#statebtn').on('click', function () {
 
-  
+  d3.selectAll('.svglevelup').style('opacity', 0);
+  d3.select('#svgDiv1').style('opacity', 1);
+});
+d3.select('#countrybtn').on('click', function () {
+  d3.selectAll('.svglevelup').style('opacity', 0);
+  d3.select('#svgDiv2').style('opacity', 1);
+});
+d3.select('#agebtn').on('click', function () {
+  d3.selectAll('.svglevelup').style('opacity', 0);
+  d3.select('#svgDiv3').style('opacity', 1);
+});

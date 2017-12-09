@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+body {
+  margin: 15px;
+  background-color: #F1F3F3
+}
+.bar {
+
+	fill: #6F257F;
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #D4D8DA;
+  stroke-width: 1px;
+  shape-rendering: crispEdges;
+}
+.x path {
+	display: none;
+}
+.toolTip {
+	position: absolute;
+  display: none;
+  min-width: 80px;
+  height: auto;
+  background: none repeat scroll 0 0 #ffffff;
+  border: 1px solid #6F257F;
+  padding: 14px;
+  text-align: center;
+}
+
+.svglevelup{
+  position: absolute;
+  top: 20;
+  left: 0
+}
+
+
+
+</style>
+
+
+
+<head>
+
+</head>
+<body>
+  <button type="button" id='statebtn'>State</button>
+  <button type="button" id='countrybtn'>Country</button>
+  <button type="button" id='agebtn'>Age</button>
+
+
+<div class="svglevelup" id='svgDiv2'>  <svg id="bar" width="560" height="300"></svg></div>
+ <div class="svglevelup" id='svgDiv1'>   <svg id="bar2" width="560" height="300"></svg></div>
+ <div class="svglevelup" id='svgDiv3'> <svg id="bar3" width="560" height="300"></svg></div>
+
+
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<script>
+
+var data1 = [{"state":"Califonia","value":223749},
+{"state":"Texas","value":124774},
+{"state":"New York","value":42503},
+{"state":"Florida","value":33207},
+{"state":"Washington","value":17937},
+{"state":"Illionis","value":42537},
+{"state":"Arizona","value":27932},
+{"state":"New Jersey","value":22227},
+{"state":"North Carolina","value":27455},
+{"state":"Georgia","value":24234}
+];
+
+
+var svg = d3.select("#bar"),
+    margin = {top: 20, right: 20, bottom: 30, left: 80},
+    width = +svg.attr("width") - margin.left - margin.right,
+    height = +svg.attr("height") - margin.top - margin.bottom;
+
+var tooltip = d3.select("body").append("div").attr("class", "toolTip");
+
+var x = d3.scaleLinear().range([0, width]);
+var y = d3.scaleBand().range([height, 0]).padding(0.1);
+
+var g = svg.append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+// d3.csv("conutrydata.csv", function(error, data) {
+//   	if (error) throw error;
+
+  	data1.sort(function(a, b) { return a.value - b.value; });
+    data1.forEach(function(d){
+      d.value = +d.value;
+    })
+  	x.domain([0, d3.max(data1, function(d) { return d.value; })]);
+    y.domain(data1.map(function(d) { return d.state; }));
+
+    g.append("g")
+        .attr("class", "x axis")
+       	.attr("transform", "translate(0," + height + ")")
+        // .call(d3.axisBottom(x)).ticks(5);
+      	.call(d3.axisBottom(x).ticks(5).tickFormat(function(d) { return parseInt(d / 1000); }).tickSizeInner([-height]));
+
+    g.append("g")
+        .attr("class", "y axis")
+        .call(d3.axisLeft(y));
+
+    g.selectAll(".bar")
+        .data(data1)
+      .enter().append("rect")
+        .attr("class", "bar")
+        // .attr("x", 0)
+        .attr("height", y.bandwidth())
+        .attr("y", function(d) { return y(d.state); })
+        .attr("width", function(d) { return x(d.value); })
+        .on("mousemove", function(d){
+            tooltip
+              .style("left", d3.event.pageX - 50 + "px")
+              .style("top", d3.event.pageY - 70 + "px")
+              .style("display", "inline-block")
+              .html("State:"+ (d.state) + "<br>" + "DACA beneficiaries:" + (d.value));
+        })
+    		.on("mouseout", function(d){ tooltip.style("display", "none");});
+
+    g.selectAll(".text")
+  	  .data(data1)
+  	  .enter()
+  	  .append("text")
+  	  .attr("class","label")
+  	  .attr("y", (function(d) { return y(d.state) + y.bandwidth() / 1.5 ; }  ))
+  	  // .attr("x", function(d) { return x(d.value) / 2; })
+      // .attr("text-anchor", "middle")
+      .attr("x", + 5)
+      .attr("fill", "white")
+  	  .style("font-size", "12px")
+  	  .text(function(d) { return d.value; });
+
+
+
+
+        var data = [{"country":"Mexico","value":622743},
+        {"country":"El Salvador","value":28571},
+        {"country":"Guatemala","value":20000},
+        {"country":"Honduras","value":18385},
+        {"country":"Peru","value":9102},
+        {"country":"South Korea","value":7282},
+        {"country":"Brazil","value":7400},
+        {"country":"Ecuador","value":6725},
+        {"country":"Colombia","value":6608},
+        {"country":"Philippines","value":4674}
+        ];
+
+
+        var svg = d3.select("#bar2"),
+            margin = {top: 20, right: 20, bottom: 30, left: 80},
+            width = +svg.attr("width") - margin.left - margin.right,
+            height = +svg.attr("height") - margin.top - margin.bottom;
+
+        var tooltip = d3.select("body").append("div").attr("class", "toolTip");
+
+        var x = d3.scaleLinear().range([0, width]);
+        var y = d3.scaleBand().range([height, 0]).padding(0.1);
+
+        var g = svg.append("g")
+        		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        // d3.csv("conutrydata.csv", function(error, data) {
+        //   	if (error) throw error;
+
+          	data.sort(function(a, b) { return a.value - b.value; });
+            data.forEach(function(d){
+              d.value = +d.value;
+            })
+          	x.domain([0, d3.max(data, function(d) { return d.value; })]);
+            y.domain(data.map(function(d) { return d.country; }));
+
+            g.append("g")
+                .attr("class", "x axis")
+               	.attr("transform", "translate(0," + height + ")")
+                // .call(d3.axisBottom(x)).ticks(5);
+              	.call(d3.axisBottom(x).ticks(5).tickFormat(function(d) { return parseInt(d / 1000); }).tickSizeInner([-height]));
+
+            g.append("g")
+                .attr("class", "y axis")
+                .call(d3.axisLeft(y));
+
+            g.selectAll(".bar")
+                .data(data)
+              .enter().append("rect")
+                .attr("class", "bar")
+                // .attr("x", 0)
+                .attr("height", y.bandwidth())
+                .attr("y", function(d) { return y(d.country); })
+                .attr("width", function(d) { return x(d.value); })
+                .on("mousemove", function(d){
+                    tooltip
+                      .style("left", d3.event.pageX - 50 + "px")
+                      .style("top", d3.event.pageY - 70 + "px")
+                      .style("display", "inline-block")
+                      .html("Country:"+ (d.country) + "<br>" + "DACA beneficiaries:" + (d.value));
+                })
+            		.on("mouseout", function(d){ tooltip.style("display", "none");});
+
+                g.selectAll(".text")
+              	  .data(data)
+              	  .enter()
+              	  .append("text")
+              	  .attr("class","label")
+              	  .attr("y", (function(d) { return y(d.country) + y.bandwidth() / 1.5 ; }  ))
+              	  // .attr("x", function(d) { return x(d.value) / 2; })
+                  // .attr("text-anchor", "middle")
+                  .attr("x", + 5)
+                  .attr("fill", "balck")
+              	  .style("font-size", "12px")
+              	  .text(function(d) { return d.value; });
+
+
+
+
+
+                data3 = [
+                {"age":"0","value":4.5},
+                {"age":"1","value":7.6},
+                {"age":"2","value":8.3},
+                {"age":"3","value":9.7},
+                {"age":"4","value":8.0},
+                {"age":"5","value":8.7},
+                {"age":"6","value":7.4},
+                {"age":"7","value":7.4},
+                {"age":"8","value":6.5},
+                {"age":"9","value":6.2},
+                {"age":"10","value":5.6},
+                {"age":"11","value":5.0},
+                {"age":"12","value":3.9},
+                {"age":"13","value":3.5},
+                {"age":"14","value":4.1},
+                {"age":"15","value":3.7}
+                ];
+
+
+                var svg = d3.select("#bar3"),
+                    margin = {top: 20, right: 20, bottom: 30, left: 80},
+                    width = +svg.attr("width") - margin.left - margin.right,
+                    height = +svg.attr("height") - margin.top - margin.bottom;
+
+                var tooltip = d3.select("body").append("div").attr("class", "toolTip");
+
+                var x = d3.scaleLinear().range([0, width]);
+                var y = d3.scaleBand().range([height, 0]).padding(0.1);
+
+                var g = svg.append("g")
+                		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                // d3.csv("conutrydata.csv", function(error, data) {
+                //   	if (error) throw error;
+
+
+                    data3.forEach(function(d){
+                      d.value = +d.value;
+                    })
+                  	x.domain([0, d3.max(data3, function(d) { return d.value; })]);
+                    y.domain(data3.map(function(d) { return d.age; }));
+
+                    g.append("g")
+                        .attr("class", "x axis")
+                       	.attr("transform", "translate(0," + height + ")")
+                      	.call(d3.axisBottom(x).ticks(5).tickFormat(function(d) { return d + "%"; }).tickSizeInner([-height]));
+
+                    g.append("g")
+                        .attr("class", "y axis")
+                        .call(d3.axisLeft(y));
+
+                    g.selectAll(".bar")
+                        .data(data3)
+                      .enter().append("rect")
+                        .attr("class", "bar")
+                        // .attr("x", 0)
+                        .attr("height", y.bandwidth())
+                        .attr("y", function(d) { return y(d.age); })
+                        .attr("width", function(d) { return x(d.value); })
+                        .on("mousemove", function(d){
+                            tooltip
+                              .style("left", d3.event.pageX - 50 + "px")
+                              .style("top", d3.event.pageY - 70 + "px")
+                              .style("display", "inline-block")
+                              .html("age:"+ (d.age) + "<br>" + "DACA beneficiaries:" + (d.value) + "%");
+                        })
+                    		.on("mouseout", function(d){ tooltip.style("display", "none");});
+
+
+
+
+                d3.selectAll('.svglevelup').style('opacity', 0);
+                d3.select('#svgDiv1').style('opacity', 1);
+        d3.select('#statebtn').on('click', function () {
+
+          d3.selectAll('.svglevelup').style('opacity', 0);
+          d3.select('#svgDiv1').style('opacity', 1);
+        });
+        d3.select('#countrybtn').on('click', function () {
+          d3.selectAll('.svglevelup').style('opacity', 0);
+          d3.select('#svgDiv2').style('opacity', 1);
+        });
+        d3.select('#agebtn').on('click', function () {
+          d3.selectAll('.svglevelup').style('opacity', 0);
+          d3.select('#svgDiv3').style('opacity', 1);
+        });
+
+</script>
+
+</body>

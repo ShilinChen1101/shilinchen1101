@@ -45,35 +45,37 @@
 </head>
 
 <body>
-<!-- Hamburger menu
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-<nav role="navigation" class="TheMargins_nav" >
-  <div id="menuToggle">
-    <!--
-    A fake / hidden checkbox is used as click reciever,
-    so you can use the :checked selector on it.
-    -->
-    <input type="checkbox" />
+  <!-- Hamburger menu
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <nav role="navigation" class="TheMargins_nav" >
+    <div id="menuToggle">
+      <!--
+      A fake / hidden checkbox is used as click reciever,
+      so you can use the :checked selector on it.
+      -->
+      <input type="checkbox" />
 
-    <!--
-    Some spans to act as a hamburger.
-    -->
-    <span></span>
-    <span></span>
-    <span></span>
+      <!--
+      Some spans to act as a hamburger.
+      -->
+      <span></span>
+      <span></span>
+      <span></span>
 
-    <ul id="menu">
-        <a href="#"><li>Article 1</li></a>
-        <a href="#"><li>Article 2</li></a>
-        <a href="#"><li>Article 3</li></a>
-        <a href="#"><li>Article 4</li></a>
-        <a href="#"><li>Article 5</li></a>
-        <a href="#"><li>Article 6</li></a>
-        <a href="http://www.northeastern.edu/rugglesmedia/"><li>More on Ruggles Media</li></a>
+      <ul id="menu">
+       <a href="http://www.northeastern.edu/rugglesmedia/TheMargins/a-new-identity"><li>A new identity beyond he and she</li></a>
+       <a href="http://www.northeastern.edu/rugglesmedia/TheMargins/the-dream-act-might-be ending-soon"><li>The Dream Act might be ending soon. Here's why you should care.</li></a>
+       <a href="http://www.northeastern.edu/rugglesmedia/TheMargins/between-choice-and-circumstance"><li>The Balance between choice and circumstance in Boston's inner city</li></a>
+       <a href="http://www.northeastern.edu/rugglesmedia/TheMargins/it-takes-two-to-transition"><li>It takes two to transition</li></a>
+       <a href="http://www.northeastern.edu/rugglesmedia/TheMargins/tech-was-supposed-to-be-the-great-equalizer"><li>Tech was supposed to be the great equalizer.
+So where are all the black people?</li></a>
+       <a href="http://www.northeastern.edu/rugglesmedia/TheMargins/hacking-change"><li>Hacking change</li></a>
+       <a href="http://www.northeastern.edu/rugglesmedia/"><li>More from Ruggles Media</li></a>
+      </ul>
+    </div>
+  </nav>
 
-    </ul>
-  </div>
-</nav>
+
 
 <div class="pimg1">
   <div class="ptext">
@@ -236,9 +238,12 @@
       </p>
 </div>
 
-      <div class="eight columns offset-by-two"><h2 class="TheMargins_head">A Typical ‘Dreamer’ Lives in Los
-Angeles, Is From Mexico and
-Came to the U.S. at 6 Years Old</h2><button type="button">show data</button>
+
+
+      <div class="eight columns offset-by-two"><h2 class="TheMargins_head" id="tdreamer">Who are they - Characteristics of "Dreamers"</h2>
+<button type="button" id='statebtn'>State</button>
+<button type="button" id='countrybtn'>Country</button>
+<button type="button" id='agebtn'>Age</button>
 
 <!-- </br><button id="hide" type="button">Hide</button>
 <div id="barchart" style="display:none"></div>
@@ -248,20 +253,13 @@ Came to the U.S. at 6 Years Old</h2><button type="button">show data</button>
 
 </div>
 
-<script type="text/javascript">
-$(document).ready(function(){
-  $("button").click(function(){
-  $("#barchart,#barchart2,#bar").toggle();
-  });
-});
-</script>
-
-<div class="eight columns offset-by-two">
+<div class="eight columns offset-by-two" id='barChartViz'>
 
 
-     <svg id="barchart" width="600" height="300" style="display:none"></svg>
-      <svg id="barchart2" width="600" height="300" style="display:none"></svg>
-      <svg id="bar" width="600" height="300" style="display:none"></svg>
+     <div class="svglevelup" id='svgDiv2'> <p>Most came from Mexico.</p> <svg id="barchart" width="560" height="300"></svg></div>
+      <div class="svglevelup" id='svgDiv1'> <p>More than a quarter live in Califonia.</p>  <svg id="barchart2" width="560" height="300"></svg></div>
+      <div class="svglevelup" id='svgDiv3'> <p>The median age of entry is 6 years old.</p><svg id="bar" width="560" height="300"></svg></div>
+
 
 
 </div>

@@ -140,9 +140,14 @@ a:hover
 }
 
 #menu li
-{
-  padding: 10px 0;
-  font-size: 22px;
+   {
+   padding: 10px 0;
+   font-size: 2.7rem;
+   line-height: 2.7rem;
+   border-bottom: solid 1px darkgrey;
+   font-family: "BentonSansComp-Bold",“Helvetica”,sans-serif;
+   text-transform: uppercase;
+
 }
 
 /*
@@ -238,3 +243,14 @@ span.TheMargins_footer {
     font-size: 1.5rem;
     color: black;
 }
+
+@media (max-width: 550px) {
+  #barChartViz{
+    display: none;
+  }
+  #tdreamer{
+    display: none;
+  }
+  #statebtn, #countrybtn, #agebtn{
+   display: none;
+  }

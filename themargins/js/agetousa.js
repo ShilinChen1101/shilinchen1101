@@ -57,12 +57,25 @@ var g = svg.append("g")
         // .attr("x", 0)
         .attr("height", y.bandwidth())
         .attr("y", function(d) { return y(d.age); })
-        .attr("width", function(d) { return x(d.value); })
-        .on("mousemove", function(d){
-            tooltip
-              .style("left", d3.event.pageX - 50 + "px")
-              .style("top", d3.event.pageY - 70 + "px")
-              .style("display", "inline-block")
-              .html("age:"+ (d.age) + "<br>" + "DACA beneficiaries:" + (d.value) + "%");
-        })
-    		.on("mouseout", function(d){ tooltip.style("display", "none");});
+        .attr("width", function(d) { return x(d.value); });
+        // .on("mousemove", function(d){
+        //     tooltip
+        //       .style("left", d3.event.pageX - 50 + "px")
+        //       .style("top", d3.event.pageY - 70 + "px")
+        //       .style("display", "inline-block")
+        //       .html("age:"+ (d.age) + "<br>" + "DACA beneficiaries:" + (d.value) + "%");
+        // })
+    		// .on("mouseout", function(d){ tooltip.style("display", "none");});
+
+        g.selectAll(".text")
+          .data(data)
+          .enter()
+          .append("text")
+          .attr("class","label")
+          .attr("y", (function(d) { return y(d.age) + y.bandwidth() / 1.2 ; }  ))
+          // .attr("x", function(d) { return x(d.value) / 2; })
+          // .attr("text-anchor", "middle")
+          .attr("x", + 5)
+          .attr("fill", "balck")
+          .style("font-size", "12px")
+          .text(function(d) { return d.value + "%"; });

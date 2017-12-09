@@ -30,13 +30,14 @@ body, html{
 
 .ptext{
   position:absolute;
-  top:40%;
+  top:35%;
   width:100%;
   text-align:center;
   color:#fff;
-  font-family: "PostoniStandardBold",Georgia,serif;
-  font-size:4rem;
-  letter-spacing:1px;
+  font-family: 'PT Sans Narrow',sans-serif;
+  /*font-family: 'Canela Web','Publico Text Web',Georgia,Times,serif;*/
+  /*font-family: "PostoniStandardBold",Georgia,serif;*/
+  font-size:7.5rem;
   font-weight:bold;
   text-transform:uppercase;
   text-shadow: 1px 1px #2a2a2a;
@@ -49,9 +50,7 @@ body, html{
   padding:20px;
 }
 
-.ptext .border.trans{
-  /*background-color:transparent;*/
-}
+
 
 @media(max-width:568px){
   .pimg1, .pimg2, .pimg3{
@@ -73,9 +72,18 @@ body, html{
 }
 
 .subhead{
-  font-size:  2rem;
-  letter-spacing:1px;
+  font-size:  2.3rem;
   text-transform:none;
-  font-family: "nyt-franklin", arial, helvetica, sans-serif;
+  font-family: 'Canela Web','Publico Text Web',Georgia,Times,serif;
   font-weight:normal;
+}
+
+#barChartViz{
+  position: relative;
+  min-height: 600px;
+}
+.svglevelup{
+  position: absolute;
+  top: 0;
+  left: 0
 }
