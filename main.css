@@ -1,9 +1,77 @@
-body {
-	margin: 0;
-	padding: 0;
-	position: relative;
-	width: auto;
+body, html{
+  height:100%;
+  margin:0;
+  font-size:16px;
+  font-family:"Lato", sans-serif;
+  font-weight:400;
+  line-height:1.8em;
+  color:#666;
 }
+
+.pimg1, .pimg2, .pimg3{
+  position:relative;
+  background-position:center;
+  background-size:cover;
+  background-repeat:no-repeat;
+
+  /*
+    fixed = parallax
+    scroll = normal
+  */
+  background-attachment:fixed;
+}
+
+.pimg1{
+  background-image:url('ufo.jpg');
+  min-height:100%;
+}
+
+
+.section{
+  text-align:center;
+  padding:50px 80px;
+}
+
+.section-light{
+  background-color:#342e52;
+  color:#666;
+}
+
+.section-dark{
+  background-color:#282e34;
+  color:#ddd;
+}
+
+.ptext{
+  position:absolute;
+  top:70%;
+  width:100%;
+  text-align:center;
+	font-family: "futura",sans-serif;
+  text-transform:uppercase;
+	color: #fff;
+  font-weight: 600;
+  font-size: 48px;
+  letter-spacing: 8px;
+}
+
+.ptext .border{
+  background-color:#111;
+  color:#fff;
+  padding:20px;
+}
+
+.ptext .border.trans{
+  background-color:transparent;
+}
+
+@media(max-width:568px){
+  .pimg1, .pimg2, .pimg3{
+    background-attachment:scroll;
+  }
+}
+
+
 nav
 {
   background: transparent;
@@ -70,29 +138,15 @@ nav ul li.logo
   color: #fff;
   text-align: center;
   padding: 80px 0;
-  height:1500px;
-}
-
-.wrapper
-{
-  max-width: 1080px;
-  margin: 0 auto;
-}
-
-.MainWrapper
-{
-  background: #444 url(ufo.jpg);
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
 
 }
+
+
 
 #map {
-   stroke-width: 1.8px;
-   stroke: #CFCFCF;
-   fill: #F0F0F0;
+   stroke-width: 1px;
+   stroke: #fff;
+   fill: #0b073b;
 }
 
 .axis path,
@@ -122,3 +176,21 @@ circle {
    fill: #FF8533;
    stroke-width: 0px;
 }
+
+.toolTip {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        position: absolute;
+        display: none;
+        width: auto;
+        height: auto;
+        background: none repeat scroll 0 0 white;
+        border: 0 none;
+        border-radius: 8px 8px 8px 8px;
+        box-shadow: -3px 3px 15px #888888;
+        color: black;
+        font: 12px sans-serif;
+        padding: 5px;
+        text-align: center;
+}
+
+.bar { fill: #FCAD62; }

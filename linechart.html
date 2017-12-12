@@ -38,7 +38,6 @@
        var data = d3.nest()
          .key(function(d) {
            return new Date(d.datetime).getFullYear();
-           console.log(d.datetime);
          })
          .entries(rawData)
          .sort(function(a, b) {

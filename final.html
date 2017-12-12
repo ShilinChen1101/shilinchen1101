@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script src="https://unpkg.com/topojson@3"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<style>
+
+/* Legend Font Style */
+body {
+	font: 11px sans-serif;
+	background-color: #ffffff;
+}
+
+/* Legend Position Style */
+.legend {
+	position:absolute;
+	left:20px;
+	top:30px;
+}
+
+.axis text {
+	font: 10px sans-serif;
+}
+
+.axis line, .axis path {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+
+</style>
+</head>
+<body>
+  <svg id="map" width = "660" heigh = "300"></svg>
+<script>
+// var width = 1000, height = 600;
+//   var margin ={top:20, right:20, bottom:0, left:90},
+//       width = 1000 - margin.left - margin.right,
+//       height = 600 - margin.top - margin.bottom;
+//   var svg = d3.select("body")
+//     .attr("width", window.innerWidth)
+//     .attr("height", window.innerHeight);
+
+  // Data Organize //
+
+
+  d3.csv("ufodata2.csv", function(error, rawData) {
+    if (error) throw error;
+
+    rawData = rawData.filter(function(d) {
+      return d.datetime;
+    });
+
+
+
+   var statedata = d3.nest()
+     .key(function(d){
+       return d.state;
+     })
+     .entries(rawData);
+
+
+  var dataLookup = {}
+    statedata.forEach(function(d){
+      dataLookup[d.key] = d;
+
+    });
+
+    statedata.forEach(function(d) {
+				d.states = d.key;
+				d.stateSightings = d.values.length;
+
+		});
+
+  // set up colorscale
+    var colorScale = d3.scaleLinear()
+      .domain([7,2500,5000])
+      .range(["#f8f6d7","#E2C93F","#8f583b"])
+
+  // var portraits = d3.select("body")
+  // .attr("width", window.innerWidth);
+
+
+        d3.json("usa.json", function(error, data) {
+        var geoJSON = topojson.feature(data, data.objects.states);
+        console.log(geoJSON);
+        console.log(data);
+
+        var proj = d3.geoAlbersUsa()
+          .fitSize([window.innerWidth, window.innerHeight], geoJSON);
+
+        var path = d3.geoPath()
+          .projection(proj);
+
+        var svg = d3.select("#map")
+          .attr("width", window.innerWidth)
+          .attr("height", window.innerHeight);
+
+        var states = svg.selectAll("path")
+          .data(geoJSON.features);
+          .attr("fill", function(d){ return color(d.stateSightings = dataLookup(d.d))});
+
+          function myFill(d) {
+            var mydata = dataLookup[d.d];
+            if (mydata != undefined) {
+              var color = colorScale(mydata["INDEX"]);
+              console.log(mydata);
+              return color;
+            }
+          }
+
+
+          states.enter().append("path")
+            .attr("d", function(d) {
+              return path(d);
+            })
+
+            .attr("stroke", "white")
+            .attr("stroke-width", 1)
+            .attr("fill", function(d,i) {
+              return myFill(d);
+            })
+            .on("mouseover", function(d,i) {
+              var mydata = dataLookup[d.d];
+              d3.select(this)
+              .attr("fill", "#4c363a")
+              // .attr("stroke", "#52331b")
+              // .attr("stroke-width",4);
+              var tooltip= d3.select('.tooltip');
+                  tooltip.transition()
+                         .style('opacity',0.7)
+                         .style("left", (d3.event.pageX)+ 100 + "px")
+                         .style("top", (d3.event.pageY) + "px")
+                         .style("display", "block");
+
+                   d3.select(this)
+                     .transition()
+                     .duration(500)
+
+                        tooltip
+                                .select('.tipStates')
+                                .text(mydata.NAME);
+                        tooltip
+                                .select('.tipIndex')
+                                .text("Index:" + mydata.INDEX);
+                        tooltip
+                                .select('.tipRate')
+                                .text("Rate of New Entrepreneurs: " + mydata.RATE + "%");
+                        tooltip
+                                .select('.tipOpportunity')
+                                .text("Opportunity Share of New Entrepreneurs: " + mydata.OPPORTUNITY + "%");
+                        tooltip
+                                .select('.tipDensity')
+                                .text("Startup Density: " + mydata.DENSITY);
+
+
+
+
+
+          })
+
+        .on("mouseout", function(d,i) {
+            d3.select(this)
+            // .attr("stroke", myFill(d))
+            //   .attr("stroke-width", 2)
+            .attr("fill", myFill(d));
+            tooltip.transition()
+                   .style('opacity',0);
+          });
+
+          // d3.select("#colorRect")
+          //   .attr("fill",colorScale);
+
+
+    });
+
+
+    });
+
+</script>
+</body>
+</html>
