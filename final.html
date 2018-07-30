@@ -99,7 +99,7 @@ body {
 
         var states = svg.selectAll("path")
           .data(geoJSON.features);
-          .attr("fill", function(d){ return color(d.stateSightings = dataLookup(d.d))});
+          .attr("fill", function(d){ return color(d.stateSightings = dataLookup(d.d))})
 
           function myFill(d) {
             var mydata = dataLookup[d.d];
